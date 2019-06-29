@@ -1,21 +1,58 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { Button, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
+//use reactstrap to create popover to check that information is correct before submitting
 
 class RegisterPage extends Component {
-  state = {
-    username: '',
-    password: '',
-  };
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      popoverOpen: false,
+      username: '',
+      password: '',
+      password2: '',
+      firstName: '',
+      lastName: '',
+      address1: '',
+      address2: '',
+      city: '',
+      state: '',
+      zip: '',
+      country: '',
+      email: '',
+      phone: '',
+
+    };
+  }
+
+  toggle() {
+    this.setState({
+      popoverOpen: !this.state.popoverOpen
+    });
+  }
+
 
   registerUser = (event) => {
     event.preventDefault();
 
-    if (this.state.username && this.state.password) {
+    if (this.state.username && this.state.password === this.state.password2) {
       this.props.dispatch({
         type: 'REGISTER',
         payload: {
           username: this.state.username,
           password: this.state.password,
+          address1: this.state.address1,
+          address2: this.state.address2,
+          city: this.state.city,
+          state: this.state.state,
+          zip: this.state.zip,
+          country: this.state.country,
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          phone: this.state.phone,
+          email: this.state.email,
         },
       });
     } else {
@@ -29,6 +66,8 @@ class RegisterPage extends Component {
     });
   }
 
+  
+  
   render() {
     return (
       <div>
@@ -40,8 +79,10 @@ class RegisterPage extends Component {
             {this.props.errors.registrationMessage}
           </h2>
         )}
+
         <form onSubmit={this.registerUser}>
-          <h1>Register User</h1>
+          <h1>Lets Get Started!</h1>
+          <h2>Please enter your information</h2>
           <div>
             <label htmlFor="username">
               Username:
@@ -59,18 +100,167 @@ class RegisterPage extends Component {
               <input
                 type="password"
                 name="password"
+                minlength="8"
+                title="All passwords must be at least 8 characters long"
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
               />
             </label>
           </div>
           <div>
-            <input
-              className="register"
-              type="submit"
-              name="submit"
-              value="Register"
-            />
+            <label htmlFor="password2">
+              Please Reenter your Password:
+              <input
+                type="confirm_password"
+                name="password2"
+                value={this.state.password2}
+                onChange={this.handleInputChangeFor('password2')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="first">
+              First Name:
+              <input
+                type="firstName"
+                name="firstName"
+                value={this.state.firstName}
+                onChange={this.handleInputChangeFor('firstName')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="last">
+              Last Name:
+              <input
+                type="lastName"
+                name="lastName"
+                value={this.state.lastName}
+                onChange={this.handleInputChangeFor('lastName')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="email">
+              Email:
+              <input
+                type="email"
+                name="email"
+                value={this.state.email}
+                onChange={this.handleInputChangeFor('email')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="phone">
+              Phone Number:
+              <input
+                type="phone"
+                name="phone"
+                value={this.state.phone}
+                onChange={this.handleInputChangeFor('phone')}
+              />
+            </label>
+
+          </div>
+          <div>
+            <label htmlFor="address1">
+              Address 1:
+              <input
+                type="address"
+                name="address1"
+                value={this.state.address1}
+                onChange={this.handleInputChangeFor('address1')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="address2">
+              Address 2:
+              <input
+                type="address"
+                name="address2"
+                value={this.state.address2}
+                onChange={this.handleInputChangeFor('address2')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="city">
+              City:
+              <input
+                type="address"
+                name="city"
+                value={this.state.city}
+                onChange={this.handleInputChangeFor('city')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="zip">
+              Zip Code:
+              <input
+                type="address"
+                name="zip"
+                value={this.state.zip}
+                onChange={this.handleInputChangeFor('zip')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="state">
+              State:
+              <input
+                type="address"
+                name="state"
+                value={this.state.state}
+                onChange={this.handleInputChangeFor('state')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="country">
+              Country:
+              <input
+                type="address"
+                name="country"
+                value={this.state.country}
+                onChange={this.handleInputChangeFor('country')}
+              />
+            </label>
+          </div>
+          <div >
+            <Button type="button" id="Popover1" disabled={!this.state.username || !this.state.password || !this.state.password2} onClick={this.confirm}>Submit</Button>
+            <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
+              <PopoverHeader>Please Confirm the following information is correct</PopoverHeader>
+              <PopoverBody>Username: {this.state.username} 
+              <br />
+              Email: {this.state.email}
+              <br />
+              Phone: {this.state.phone}
+              <br />
+              Address: 
+              <br />{this.state.address1}
+              
+              {this.state.address2}
+              <br />
+              {this.state.city}
+              <br /> 
+              {this.state.zip}
+              <br />
+              {this.state.country}
+              <br />
+                <div>
+                  <input
+                    className="register"
+                    type="submit"
+                    name="submit"
+                    value="Register"
+                    onClick={this.registerUser}
+                  />
+                </div>
+              </PopoverBody>
+            </Popover>
           </div>
         </form>
         <center>
