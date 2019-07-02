@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Button, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 //use reactstrap to create popover to check that information is correct before submitting
+import './RegisterPage.css'
 
 class RegisterPage extends Component {
   constructor(props) {
@@ -70,7 +71,7 @@ class RegisterPage extends Component {
   
   render() {
     return (
-      <div>
+      <div className="mainDiv">
         {this.props.errors.registrationMessage && (
           <h2
             className="alert"
@@ -100,7 +101,8 @@ class RegisterPage extends Component {
               <input
                 type="password"
                 name="password"
-                minlength="8"
+                placeholder="Password"
+                minLength="8"
                 title="All passwords must be at least 8 characters long"
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
@@ -109,10 +111,10 @@ class RegisterPage extends Component {
           </div>
           <div>
             <label htmlFor="password2">
-              Please Reenter your Password:
+            
               <input
-                type="confirm_password"
-                name="password2"
+                type="password"
+                placeholder="Re-enter your password"
                 value={this.state.password2}
                 onChange={this.handleInputChangeFor('password2')}
               />
@@ -122,8 +124,8 @@ class RegisterPage extends Component {
             <label htmlFor="first">
               First Name:
               <input
-                type="firstName"
-                name="firstName"
+                type="text"
+                id="first"
                 value={this.state.firstName}
                 onChange={this.handleInputChangeFor('firstName')}
               />
@@ -229,9 +231,9 @@ class RegisterPage extends Component {
               />
             </label>
           </div>
-          <div >
+          <div id="popoverDiv" >
             <Button type="button" id="Popover1" disabled={!this.state.username || !this.state.password || !this.state.password2} onClick={this.confirm}>Submit</Button>
-            <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
+            <Popover position="relative" size= "500px" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
               <PopoverHeader>Please Confirm the following information is correct</PopoverHeader>
               <PopoverBody>Username: {this.state.username} 
               <br />
@@ -250,6 +252,7 @@ class RegisterPage extends Component {
               <br />
               {this.state.country}
               <br />
+              
                 <div>
                   <input
                     className="register"
@@ -259,6 +262,7 @@ class RegisterPage extends Component {
                     onClick={this.registerUser}
                   />
                 </div>
+                <button className="exitButton" onClick={this.toggle}>X</button>
               </PopoverBody>
             </Popover>
           </div>
