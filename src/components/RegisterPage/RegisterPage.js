@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Button, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 //use reactstrap to create popover to check that information is correct before submitting
-import './RegisterPage.css'
+import './RegisterPage.css';
+import TextInput from '../TextInput/TextInput';
 
 class RegisterPage extends Component {
   constructor(props) {
@@ -10,8 +11,7 @@ class RegisterPage extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      popoverOpen: false,
-      username: '',
+      popoverOpen: false, username: '',
       password: '',
       password2: '',
       firstName: '',
@@ -24,7 +24,6 @@ class RegisterPage extends Component {
       country: '',
       email: '',
       phone: '',
-
     };
   }
 
@@ -61,13 +60,7 @@ class RegisterPage extends Component {
     }
   } // end registerUser
 
-  handleInputChangeFor = propertyName => (event) => {
-    this.setState({
-      [propertyName]: event.target.value,
-    });
-  }
-
-  
+ 
   
   render() {
     return (
@@ -85,154 +78,71 @@ class RegisterPage extends Component {
           <h1>Lets Get Started!</h1>
           <h2>Please enter your information</h2>
           <div>
-            <label htmlFor="username">
-              Username:
-              <input
+           <TextInput changer="username"
+                label="Username"
                 type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-            </label>
+                 />
           </div>
           <div>
-            <label htmlFor="password">
-              Password:
-              <input
+              <TextInput changer="password"
                 type="password"
-                name="password"
-                placeholder="Password"
-                minLength="8"
-                title="All passwords must be at least 8 characters long"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
+                label="Password" 
+               />
           </div>
           <div>
-            <label htmlFor="password2">
-            
-              <input
-                type="password"
-                placeholder="Re-enter your password"
-                value={this.state.password2}
-                onChange={this.handleInputChangeFor('password2')}
-              />
-            </label>
+            <TextInput changer="password2"
+              type="password"
+              label="Confirm Password" />
           </div>
           <div>
-            <label htmlFor="first">
-              First Name:
-              <input
-                type="text"
-                id="first"
-                value={this.state.firstName}
-                onChange={this.handleInputChangeFor('firstName')}
-              />
-            </label>
+            <TextInput changer="firstName"
+              type="text"
+              label="First Name" />
           </div>
           <div>
-            <label htmlFor="last">
-              Last Name:
-              <input
-                type="lastName"
-                name="lastName"
-                value={this.state.lastName}
-                onChange={this.handleInputChangeFor('lastName')}
-              />
-            </label>
+            <TextInput changer="lastName"
+              type="text"
+              label="Last Name" />
           </div>
           <div>
-            <label htmlFor="email">
-              Email:
-              <input
-                type="email"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleInputChangeFor('email')}
-              />
-            </label>
+            <TextInput changer="email"
+              type="text"
+              label="Email" />
           </div>
           <div>
-            <label htmlFor="phone">
-              Phone Number:
-              <input
-                type="phone"
-                name="phone"
-                value={this.state.phone}
-                onChange={this.handleInputChangeFor('phone')}
-              />
-            </label>
+            <TextInput changer="phone"
+              type="text"
+              label="Phone Number" />
+          </div>
+          <div>
+            <TextInput changer="address1"
+              type="text"
+              label="Address 1" />
+          </div>
+          <div>
+            <TextInput changer="address2"
+              type="text"
+              label="Address 2" />
+          </div>
+          <div>
+            <TextInput changer="city"
+              type="text"
+              label="City" />
+          </div>
+          <div>
+            <TextInput changer="state"
+              type="text"
+              label="State" />
+          </div>
+          <div>
+            <TextInput changer="country"
+              type="text"
+              label="Country" />
+          </div>
 
-          </div>
-          <div>
-            <label htmlFor="address1">
-              Address 1:
-              <input
-                type="address"
-                name="address1"
-                value={this.state.address1}
-                onChange={this.handleInputChangeFor('address1')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="address2">
-              Address 2:
-              <input
-                type="address"
-                name="address2"
-                value={this.state.address2}
-                onChange={this.handleInputChangeFor('address2')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="city">
-              City:
-              <input
-                type="address"
-                name="city"
-                value={this.state.city}
-                onChange={this.handleInputChangeFor('city')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="zip">
-              Zip Code:
-              <input
-                type="address"
-                name="zip"
-                value={this.state.zip}
-                onChange={this.handleInputChangeFor('zip')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="state">
-              State:
-              <input
-                type="address"
-                name="state"
-                value={this.state.state}
-                onChange={this.handleInputChangeFor('state')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="country">
-              Country:
-              <input
-                type="address"
-                name="country"
-                value={this.state.country}
-                onChange={this.handleInputChangeFor('country')}
-              />
-            </label>
-          </div>
+          <Button type="button" id="Popover1" onClick={this.confirm}>Submit</Button>
+
           <div id="popoverDiv" >
-            <Button type="button" id="Popover1" disabled={!this.state.username || !this.state.password || !this.state.password2} onClick={this.confirm}>Submit</Button>
             <Popover position="relative" size= "500px" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
               <PopoverHeader>Please Confirm the following information is correct</PopoverHeader>
               <PopoverBody>Username: {this.state.username} 
@@ -254,13 +164,13 @@ class RegisterPage extends Component {
               <br />
               
                 <div>
-                  <input
+                  <button
                     className="register"
                     type="submit"
                     name="submit"
                     value="Register"
-                    onClick={this.registerUser}
-                  />
+                    onClick={this.registerUser}>Register</button>
+                
                 </div>
                 <button className="exitButton" onClick={this.toggle}>X</button>
               </PopoverBody>

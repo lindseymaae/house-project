@@ -17,6 +17,10 @@ border-radius: 50%;
 font-weight: bold;
 transform: translate3d(500px, -250px, 2px);
 display: inline-block;
+
+}
+.exitButton:hover{
+cursor: pointer;
 }
 
 .link-button{
@@ -32,7 +36,7 @@ margin: 30px;
 }
 
 form{
-    position: absolute;
+    position: relative;
 
 }
 
@@ -43,5 +47,9 @@ input{
 }
 input:hover{
    background-color: rgba(213, 221, 230, 0.747);
-   content: none
+    cursor: pointer;
+}
+
+.register:hover{
+    cursor: pointer;
 }
